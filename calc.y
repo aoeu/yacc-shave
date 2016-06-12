@@ -18,6 +18,7 @@ expr:
 	INTEGER				{ $$ = $1; }
 	| expr '+' expr			{ $$ = $1 + $3; }
 	| expr '-' expr			{ $$ = $1 - $3; }
+	| expr '*' expr			{ $$ = $1 * $3; }
 	;
 
 %%
