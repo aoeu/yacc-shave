@@ -5,17 +5,26 @@
 	void yyerror(char *);
 %}
 
-%token INTEGER
+%union
+{
+	int integerValue;
+	float floatValue;
+}
+
+%token INTEGER FLOAT
+%type<floatValue> expr FLOAT
+%type<integerValue> INTEGER
 
 %%
 
 program:
-	program expr '\n'		{ printf("%d\n", $2); }
+	program expr '\n'		{ printf("%g\n", $2); }
 	|
 	;
 
 expr:
-	INTEGER				{ $$ = $1; }
+	FLOAT				{ $$ = $1; }
+	| INTEGER			{ $$ = $1; }
 	| expr '+' expr			{ $$ = $1 + $3; }
 	| expr '-' expr			{ $$ = $1 - $3; }
 	| expr '*' expr			{ $$ = $1 * $3; }

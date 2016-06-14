@@ -1,14 +1,17 @@
 %{
 #include <stdlib.h>
 void yyerror(char *);
-int yylval;
 #include "y.tab.h"
 %}
 
 %%
 
+[0-9]+\.[0-9]+	{
+			yylval.floatValue = atof(yytext);
+			return FLOAT;
+		}
 [0-9]+		{
-			yylval = atoi(yytext);
+			yylval.integerValue = atoi(yytext);
 			return INTEGER;
 		}
 
